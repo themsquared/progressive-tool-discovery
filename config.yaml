@@ -1,0 +1,32 @@
+# yaml-language-server: $schema=https://agentgateway.dev/schema/config
+#
+# Two MCP servers, same catalog of 50 synthetic tools, exposed two different
+# ways, on two separate paths through one agentgateway. Separate paths
+# (rather than multiplexing) because the point of this demo is to compare
+# the two tools/list shapes side by side, not to federate them together.
+gateways:
+  default:
+    port: 3000
+routes:
+  - name: flat
+    matches:
+      - path:
+          pathPrefix: /flat
+    backends:
+      - mcp:
+          statefulMode: stateless
+          targets:
+            - name: flat
+              mcp:
+                host: http://flat-server:3005/mcp/
+  - name: progressive
+    matches:
+      - path:
+          pathPrefix: /progressive
+    backends:
+      - mcp:
+          statefulMode: stateless
+          targets:
+            - name: progressive
+              mcp:
+                host: http://progressive-server:3006/mcp/

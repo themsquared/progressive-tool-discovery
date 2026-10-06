@@ -1,0 +1,29 @@
+services:
+  flat-server:
+    build:
+      context: ./servers
+    environment:
+      SERVER_SCRIPT: flat_server.py
+      PORT: "3005"
+    expose:
+      - "3005"
+
+  progressive-server:
+    build:
+      context: ./servers
+    environment:
+      SERVER_SCRIPT: progressive_server.py
+      PORT: "3006"
+    expose:
+      - "3006"
+
+  agentgateway:
+    image: ghcr.io/agentgateway/agentgateway:v1.6.0
+    command: ["-f", "/etc/agentgateway/config.yaml"]
+    volumes:
+      - ./config.yaml:/etc/agentgateway/config.yaml:ro
+    ports:
+      - "3900:3000"
+    depends_on:
+      - flat-server
+      - progressive-server
