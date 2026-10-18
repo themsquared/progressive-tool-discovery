@@ -1,5 +1,7 @@
 # progressive-tool-discovery
 
+> 📖 **Read the write-up:** [MCP Progressive Tool Discovery: Native vs. Hand-Rolled](https://webofmike.com/progressive-discovery/)
+
 A small, fixed MCP entry point that reveals the rest of a tool catalog on
 demand, fronted by [agentgateway](https://github.com/agentgateway/agentgateway)
 v1.6.0, measured against a flat catalog exposing the same 50 tools.
